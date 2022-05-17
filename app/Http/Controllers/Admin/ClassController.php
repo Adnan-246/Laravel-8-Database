@@ -68,7 +68,7 @@ class ClassController extends Controller
       'class_name' => $request->class_name,
     );
 
-    DB::table('classes')->where('id', $id)->update($data->id);
+    DB::table('classes')->where('id', $id)->update($data);
     return redirect()->back()->with('success', 'Successfully updated');
   }
 }

@@ -8,7 +8,8 @@
                 <div class="card-header">{{ __('All Class') }}</div>
 
                 <div class="card-body">
-                    <a href="#" class="btn btn-info btn-sm">Add New</a>
+                    <a href="{{ route('create.class') }}" class="btn btn-info btn-sm">Add New</a>
+                    <a href="{{ route('home') }}" class="btn btn-primary btn-sm" style="float:right;">Back</a>
                     <br><br>
                     <table class="table table-responsive table-stripe">
                         <thead>
@@ -24,8 +25,8 @@
                                 <td>{{ ++$key }}</td>
                                 <td>{{ $row->class_name }}</td>
                                 <td>
-                                    <a href="#" class="btn btn-sm btn-info">Edit</a>
-                                    <a href="#" class="btn btn-sm btn-danger">Delete</a>
+                                    <a href="{{ route('class.edit', $row->id) }}" class="btn btn-sm btn-info">Edit</a>
+                                    <a href="{{ route('class.delete', $row->id) }}" class="btn btn-sm btn-danger">Delete</a>
                                 </td>
                             </tr>
                             @endforeach

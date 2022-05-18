@@ -15,8 +15,20 @@ class StudentController extends Controller
      */
     public function index()
     {
-        $students =DB::table('students')->orderBy('roll','ASC')->get();
-        return view('admin.student.index', compact('students'));
+
+        //$students =DB::table('students')->orderBy('roll','ASC')->get();
+        //_Join_//
+   $students= DB::table('students')->join('classes','students.class_id','classes.id')->get();
+       //dd($students);
+
+       // $data=DB::table('students')
+       // ->crossJoin('classes')
+       // ->get();
+       // dd($data);
+
+   return view('admin.student.index', compact('students'));
+
+
     }
 
     /**
@@ -67,7 +79,10 @@ class StudentController extends Controller
      */
     public function show($id)
     {
-        //
+        //$student = DB::table('students')->where('id', $id)->first();
+        //return response()->json($student);
+        $student =DB::table('students')->find($id);
+        return view('admin.student.view', compact ('student'));
     }
 
     /**
@@ -78,7 +93,9 @@ class StudentController extends Controller
      */
     public function edit($id)
     {
-        //
+        $classes =DB::table('classes')->get();
+        $student = DB::table('students')->where('id',$id)->first();
+        return view('admin.student.edit', compact('classes', 'student'));
     }
 
     /**
@@ -90,7 +107,23 @@ class StudentController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+        'class_id' =>'required',
+        'name' =>'required',
+        //'email' =>'required|max:50|unique:students',
+        'phone' =>'required',
+        'roll' =>'required',
+      ]);
+
+      $data  = array(
+        'class_id' => $request->class_id,
+        'name' => $request->name,
+        'email' => $request->email,
+        'phone' => $request->phone,
+        'roll' => $request->roll,
+      );
+      DB::table('students')->where('id',$id)->update($data);
+      return redirect()->route('students.index')->with('success', 'Successfully updated');
     }
 
     /**
@@ -101,6 +134,9 @@ class StudentController extends Controller
      */
     public function destroy($id)
     {
-        //
+        //resource route use korar jonno form submit ar maddhome delete kortre fa-heartbeat
+        DB::table('students')->where('id',$id)->delete();
+        return redirect()->back()->with('success', 'Successfully deleted');
+
     }
 }

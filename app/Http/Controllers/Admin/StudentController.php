@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use DB;
+use App\Models\Student;
 
 class StudentController extends Controller
 {
@@ -15,10 +16,13 @@ class StudentController extends Controller
      */
     public function index()
     {
+        //_Using Model to show Students Lists_//
+        // $students=Student::all();
+        // return response()->json($students);
 
         //$students =DB::table('students')->orderBy('roll','ASC')->get();
         //_Join_//
-   $students= DB::table('students')->join('classes','students.class_id','classes.id')->get();
+   $students= DB::table('students')->join('classes','students.class_id','classes.id')->simplePaginate(5);
        //dd($students);
 
        // $data=DB::table('students')

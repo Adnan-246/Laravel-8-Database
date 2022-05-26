@@ -14,11 +14,11 @@
                         <strong class="text-success">{{ session()->get('success') }}</strong>
 
                     @endif
-                    <form action="{{ route('class.update') }}" method="post">
+                    <form action="{{ route('class.update',$class->id) }}" method="post">
                         @csrf
                       <div class="mb-3">
                         <label for="exampleInputEmail12" class="form-label">Class Name</label>
-                        <input type="text" name="class_name" class="form-control @error('class_name') is-invalid @enderror" value="{{ old('class_name') }}" id="exampleInputEmail12" placeholder="Enter your class name">
+                        <input type="text" name="class_name" class="form-control @error('class_name') is-invalid @enderror" value="{{ $class->class_name }}" id="exampleInputEmail12" placeholder="Enter your class name">
                             @error ('class_name')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>

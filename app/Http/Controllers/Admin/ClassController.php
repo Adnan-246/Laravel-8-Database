@@ -15,7 +15,7 @@ class ClassController extends Controller
 
   public function index()
   {
-    $class=DB::table('classes')->get();
+    $class=DB::table('classes')->Paginate(5);
   //  dd($class);
     return view('admin.class.index', compact('class'));
   }
@@ -53,8 +53,8 @@ class ClassController extends Controller
 
   public function edit($id)
   {
-    $data =DB::table('classes')->where('id',$id)->first();
-    return view('admin.class.edit', compact('data'));
+    $class =DB::table('classes')->where('id',$id)->first();
+    return view('admin.class.edit', compact('class'));
   }
 
   //_Update Method_//

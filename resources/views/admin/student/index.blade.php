@@ -36,7 +36,7 @@
                                 <td>{{ $row->name }}</td>
                                 <td>{{ $row->email }}</td>
                                 <td>{{ $row->phone}}</td>
-                                <td>{{ $row->class_id }}</td>
+                                <td>{{ $row->class_name }}</td>
                                 <td>
                                   <a href="{{ route('students.show', $row->id) }}" class="btn btn-sm btn-success">View</a>
 
@@ -53,6 +53,8 @@
                             @endforeach
                         </tbody>
                     </table>
+                    {{ $students->links() }}
+
 
                 </div>
             </div>
